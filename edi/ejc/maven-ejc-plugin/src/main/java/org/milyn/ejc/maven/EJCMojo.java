@@ -58,6 +58,9 @@ public class EJCMojo extends AbstractMojo {
     @Parameter(required = false)
     private String packageName;
 
+    @Parameter(defaultValue = "", required = false)
+    private String postFix;
+
     public void execute() throws MojoExecutionException {
     	getLog().info("Execution EJC Plugin");
     	
@@ -98,6 +101,7 @@ public class EJCMojo extends AbstractMojo {
             ejc.setDestDir(destDir);
             ejc.setEdiMappingModel(ediMappingFile);
             ejc.setPackageName(packageName);
+            ejc.setPostFix(postFix!=null ? postFix : "");
 
             if(destDir.exists()) {
                 destDir.delete();

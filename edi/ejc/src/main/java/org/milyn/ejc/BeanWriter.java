@@ -53,14 +53,14 @@ public class BeanWriter {
      * @throws IOException when error ocurrs while saving the implemented class to filesystem.
      * @throws IllegalNameException when class is a keyword in java.
      */
-    public static void writeBeansToFolder(ClassModel model, String folder, String bindingFile) throws IOException, IllegalNameException {
+    public static void writeBeansToFolder(ClassModel model, String folder, String bindingFile, String edimappingconfigFile) throws IOException, IllegalNameException {
         folder = new File(folder).getCanonicalPath();
 
         for ( JClass bean : model.getCreatedClasses()) {
             writeToFile(folder, bean);
         }
 
-        writeFactoryClass(folder, model, bindingFile);
+        writeFactoryClass(folder, model, bindingFile, edimappingconfigFile);
     }
 
     /**
@@ -68,10 +68,10 @@ public class BeanWriter {
      * supplied writer.
      * <p/>
      * Used mainly for test purposes.
-     * 
+     *
      * @param model The {@link org.milyn.ejc.ClassModel}.
      * @param writer The writer.
-     * 
+     *
      * @throws IOException when error ocurrs while saving the implemented class to filesystem.
      * @throws IllegalNameException when class is a keyword in java.
      */
@@ -91,7 +91,7 @@ public class BeanWriter {
      * @throws IllegalNameException when class name violates keywords in java.
      * @throws IOException when error ocurrrs while writing factory to file.
      */
-    private static void writeFactoryClass(String folder, ClassModel model, String bindingFile) throws IllegalNameException, IOException {
+    private static void writeFactoryClass(String folder, ClassModel model, String bindingFile, String edimappingconfigFile) throws IllegalNameException, IOException {
         JClass rootClass = model.getRootBeanConfig().getBeanClass();
         String packageName = rootClass.getPackageName();
         String className = rootClass.getClassName();
@@ -103,6 +103,7 @@ public class BeanWriter {
         configs.put("classId", classId);
         configs.put("bindingFile", new File(bindingFile).getName());
         configs.put("generateFromEDINR", generateFromEDINR);
+        configs.put("edimappingconfigFile", new File(edimappingconfigFile).getName());
 
         FileOutputStream fileOutputStream = null;
         OutputStreamWriter writer = null;

@@ -40,12 +40,12 @@ public class BindingWriter {
     }
 
 
-    public void generate(String bindingfile) throws IOException {
+    public void generate(String bindingfile, String edimappingconfigFile) throws IOException {
 
         OutputStreamWriter writer = null;
         try {
             writer = new OutputStreamWriter(new FileOutputStream(bindingfile));
-            writeBindingConfig(writer);
+            writeBindingConfig(writer, edimappingconfigFile);
         } finally {
             if (writer != null) {
                 writer.close();
@@ -53,12 +53,12 @@ public class BindingWriter {
         }
     }
 
-	public static void writeBindingConfig(ClassModel classModel, Writer writer) throws IOException, ClassNotFoundException {
-		(new BindingWriter(classModel)).writeBindingConfig(writer);
+	public static void writeBindingConfig(ClassModel classModel, Writer writer, String edimappingconfigFile) throws IOException, ClassNotFoundException {
+		(new BindingWriter(classModel)).writeBindingConfig(writer, edimappingconfigFile);
         writer.flush();
 	}
-	
-	public void writeBindingConfig(Writer writer) throws IOException {
+
+	public void writeBindingConfig(Writer writer, String edimappingconfigFile) throws IOException {
 		Map<String, Object> templatingContextObject = new HashMap<String, Object>();
 		List<BindingConfig> beanConfigs = new ArrayList<BindingConfig>();
 
@@ -66,6 +66,7 @@ public class BindingWriter {
 
 		templatingContextObject.put("beanConfigs", beanConfigs);
 		templatingContextObject.put("classPackage", classModel.getRootBeanConfig().getBeanClass().getPackageName().replace('.', '/'));
+		templatingContextObject.put("edimappingconfigFile", edimappingconfigFile);
 		writer.write(template.apply(templatingContextObject));
 	}
 

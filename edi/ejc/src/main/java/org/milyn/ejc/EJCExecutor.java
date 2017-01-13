@@ -42,6 +42,7 @@ public class EJCExecutor {
     private Set<String> messages;
     private File destDir;
     private String packageName;
+    private String postFix;
     private static FreeMarkerTemplate messageBindingTemplate = new FreeMarkerTemplate("templates/interchange-message-bindingConfig.ftl.xml", EJCExecutor.class);
     private static FreeMarkerTemplate interchangeBindingTemplate = new FreeMarkerTemplate("templates/interchange-bindingConfig.ftl.xml", EJCExecutor.class);
 
@@ -49,6 +50,7 @@ public class EJCExecutor {
         assertMandatoryProperty(ediMappingModel, "ediMappingModel");
         assertMandatoryProperty(destDir, "destDir");
         assertMandatoryProperty(packageName, "packageName");
+        assertMandatoryProperty(postFix, "postFix");
 
         if(destDir.exists() && !destDir.isDirectory()) {
             throw new EJCException("Specified EJC destination directory '" + destDir.getAbsoluteFile() + "' exists, but is not a directory.");
@@ -65,7 +67,7 @@ public class EJCExecutor {
 
         if(definitionsModel != null) {
             EJC ejc = new EJC();
-            definitionsClassModel = ejc.compile(definitionsModel.getEdimap(), commonsPackageName, destDir.getAbsolutePath());
+            definitionsClassModel = ejc.compile(definitionsModel.getEdimap(), commonsPackageName, destDir.getAbsolutePath(), postFix);
 
             // Get rid of the binding and edi mapping model configs for the commons...
             deleteFile(commonsPackageName, EJC.BINDINGCONFIG_XML);
@@ -90,7 +92,7 @@ public class EJCExecutor {
                 ejc.addEDIMessageAnnotation(true);
                 if(definitionsClassModel != null) {
                     String messagePackageName = packageName + "." + description.getName();
-                    ClassModel classModel = ejc.compile(model.getValue().getEdimap(), messagePackageName, destDir.getAbsolutePath(), definitionsClassModel.getClassesByNode());
+                    ClassModel classModel = ejc.compile(model.getValue().getEdimap(), messagePackageName, destDir.getAbsolutePath(), definitionsClassModel.getClassesByNode(), postFix);
 
                     // If this is an interchange, get rid of the edi mapping model config and the
                     // Factory class for the message folder...
@@ -105,7 +107,7 @@ public class EJCExecutor {
                         rootClassesListFileBuilder.append(beanClass.getPackageName()).append(".").append(beanClass.getClassName()).append("\n");
                     }
                 } else {
-                    ejc.compile(model.getValue().getEdimap(), packageName, destDir.getAbsolutePath());
+                    ejc.compile(model.getValue().getEdimap(), packageName, destDir.getAbsolutePath(), postFix);
                 }
             }
         }
@@ -189,6 +191,11 @@ public class EJCExecutor {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+
+    public void setPostFix(String postFix) {
+        this.postFix = postFix;
     }
 
     private void assertMandatoryProperty(Object obj, String name) {

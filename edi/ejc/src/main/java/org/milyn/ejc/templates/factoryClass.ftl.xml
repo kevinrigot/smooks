@@ -64,7 +64,7 @@ public class ${className}Factory {
         smooks = new Smooks(${className}Factory.class.getResourceAsStream("${bindingFile}"));
 
         try {
-            Edimap edimap = EDIConfigDigester.digestConfig(${className}Factory.class.getResourceAsStream("edimappingconfig.xml"));
+            Edimap edimap = EDIConfigDigester.digestConfig(${className}Factory.class.getResourceAsStream("${edimappingconfigFile}"));
             delimiters = edimap.getDelimiters();
         } catch(EDIConfigurationException e) {
             IOException ioException = new IOException("Exception reading EDI Mapping model.");

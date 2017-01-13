@@ -11,8 +11,7 @@
         <param name="stream.filter.type">SAX</param>
     </params>
 
-    <edi:reader mappingModel="/${classPackage}/edimappingconfig.xml" validate="false" />
-
+    <edi:reader mappingModel="/${classPackage}/${edimappingconfigFile}" validate="false" />
     <#list beanConfigs as beanConfig>
 
     <jb:bean beanId="${beanConfig.beanId}" class="${beanConfig.runtimeClass.name}" createOnElement="${beanConfig.createOnElement}">

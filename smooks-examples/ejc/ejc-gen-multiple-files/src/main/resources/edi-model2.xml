@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.4.xsd">
+
+    <medi:description name="Test" version="1.0"/>
+
+    <medi:delimiters segment="&#10;" field="*" component="^" sub-component="~"/>
+
+    <medi:segments xmltag="Test">
+
+        <medi:segment segcode="Seg1" xmltag="header">
+                <medi:field xmltag="username"/>
+				<!--Field will be shared with the other xml-->
+                <medi:field xmltag="name">
+                    <medi:component xmltag="firstname"/>
+                    <medi:component xmltag="lastname"/>
+                </medi:field>
+                <medi:field xmltag="state"/>
+                <medi:field xmltag="email"/>
+        </medi:segment>
+		<medi:segment segcode="Seg2" xmltag="header">
+                <medi:field xmltag="value"/>
+		</medi:segment>
+
+    </medi:segments>
+
+</medi:edimap>

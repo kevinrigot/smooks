@@ -244,7 +244,14 @@ public class ClassModelCompiler {
 
         String propertyName = EDIUtils.encodeAttributeName(jtype, valueNode.getJavaName());
         childToParentProperty = new JNamedType(jtype, propertyName);
-
+        if(valueNode instanceof Field){
+            childToParentProperty.setDefaultValue(((Field) valueNode).getDefaultValue());
+            childToParentProperty.setModifiable(((Field) valueNode).isModifiable());
+        }
+        if(valueNode instanceof Component){
+            childToParentProperty.setDefaultValue(((Component) valueNode).getDefaultValue());
+            childToParentProperty.setModifiable(((Component) valueNode).isModifiable());
+        }
         JClass parentBeanClass = parent.getBeanClass();
         if(!parentBeanClass.isFinalized() && !parentBeanClass.hasProperty(propertyName) && model.isClassCreator(parentBeanClass)) {
             parentBeanClass.addBeanProperty(childToParentProperty);

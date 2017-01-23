@@ -24,16 +24,18 @@ public class Component extends ValueNode implements ContainerNode {
     private List<SubComponent> subComponent;
     private Boolean required;
     private Boolean truncatable;
+    private String defaultValue;
+    private Boolean modifiable = true;
 
 	public Component() {
 	}
-    
+
 	public Component(String xmltag, String namespace, Boolean required) {
 		super(xmltag, namespace);
 		this.required = required;
 		this.truncatable = true;
 	}
-    
+
 	public Component(String xmltag, String namespace, Boolean required, Boolean truncatable) {
 		super(xmltag, namespace);
 		this.required = required;
@@ -46,7 +48,7 @@ public class Component extends ValueNode implements ContainerNode {
         }
         return this.subComponent;
     }
-    
+
     public Component addSubComponent(SubComponent subComponent) {
     	getSubComponents().add(subComponent);
     	return this;
@@ -66,6 +68,22 @@ public class Component extends ValueNode implements ContainerNode {
 
     public void setTruncatable(Boolean value) {
         this.truncatable = value;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public boolean isModifiable() {
+        return modifiable!= null && modifiable;
+    }
+
+    public void setModifiable(Boolean modifiable) {
+        this.modifiable = modifiable;
     }
 
 }

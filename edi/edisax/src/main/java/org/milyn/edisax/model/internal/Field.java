@@ -24,8 +24,10 @@ public class Field extends ValueNode implements ContainerNode {
     private List<Component> component;
     private Boolean required;
     private Boolean truncatable;
-    
-    public Field() {    	
+    private String defaultValue;
+    private Boolean modifiable = true;
+
+    public Field() {
     }
 
 	public Field(String xmltag, String namespace, Boolean required) {
@@ -46,7 +48,7 @@ public class Field extends ValueNode implements ContainerNode {
         }
         return this.component;
     }
-    
+
     public Field addComponent(Component component) {
     	getComponents().add(component);
     	return this;
@@ -66,6 +68,22 @@ public class Field extends ValueNode implements ContainerNode {
 
     public void setTruncatable(Boolean value) {
         this.truncatable = value;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public boolean isModifiable() {
+	return modifiable != null && modifiable;
+    }
+
+    public void setModifiable(Boolean modifiable) {
+        this.modifiable = modifiable;
     }
 
 }

@@ -71,15 +71,18 @@ public class EDIConfigDigester {
     public static final String XSD_V14 = "http://www.milyn.org/schema/edi-message-mapping-1.4.xsd";
     public static final String XSD_V15 = "http://www.milyn.org/schema/edi-message-mapping-1.5.xsd";
     public static final String XSD_V16 = "http://www.milyn.org/schema/edi-message-mapping-1.6.xsd";
-    private static final String NAMESPACE_SUFFIX = ":";
+    public static final String XSD_V16_1 = "http://www.milyn.org/schema/edi-message-mapping-1.6.1.xsd";
     
+    public static final String DEFAULT_XSD = XSD_V16_1;
+    private static final String NAMESPACE_SUFFIX = ":";
+
     /**
      * Public default Constructor.
      */
-    public EDIConfigDigester() {    	
+    public EDIConfigDigester() {
     	importLocator = new URIResourceLocator();
     }
-    
+
     /**
      * Public constructor.
      * @param modelURI The model resource URI.
@@ -103,7 +106,7 @@ public class EDIConfigDigester {
     public static Edimap digestConfig(InputStream stream) throws IOException, SAXException, EDIConfigurationException {
     	return new EDIConfigDigester().digestEDIConfig(stream);
     }
-    
+
     /**
      * Digest the XML edi-message-mapping configuration stream.
      * @param stream the edi-message-mapping stream.
@@ -175,7 +178,7 @@ public class EDIConfigDigester {
      * @return true if ediNS is valid, false otherwise.
      */
     private static boolean assertValidXSD(String ediNS) {
-        return XSD_V10.equals(ediNS) || XSD_V11.equals(ediNS) || XSD_V12.equals(ediNS) || XSD_V13.equals(ediNS) || XSD_V14.equals(ediNS) || XSD_V15.equals(ediNS) || XSD_V16.equals(ediNS);
+        return XSD_V10.equals(ediNS) || XSD_V11.equals(ediNS) || XSD_V12.equals(ediNS) || XSD_V13.equals(ediNS) || XSD_V14.equals(ediNS) || XSD_V15.equals(ediNS) || XSD_V16.equals(ediNS) || XSD_V16_1.equals(ediNS);
     }
 
     /**
@@ -254,10 +257,10 @@ public class EDIConfigDigester {
     private void digestImport(Node node, Edimap edimap) {
         Import edimapImport = new Import();
         edimap.getImports().add(edimapImport);
-        
+
         URI resourceURI = importLocator.resolveURI(getAttributeValue(node, "resource"));
 		edimapImport.setResourceURI(resourceURI);
-        
+
 		edimapImport.setNamespace(getAttributeValue(node, "namespace"));
         edimapImport.setTruncatableFields(getNodeValueAsBoolean(node, "truncatableFields"));
         edimapImport.setTruncatableComponents(getNodeValueAsBoolean(node, "truncatableComponents"));
@@ -419,6 +422,8 @@ public class EDIConfigDigester {
     private void setValuesForField(Field field, Node node, String namespacePrefix, MappingNode parent) throws EDIConfigurationException {
         field.setRequired(getNodeValueAsBoolean(node, "required"));
         field.setTruncatable(getNodeValueAsBoolean(node, "truncatable"));
+        field.setModifiable(getNodeValueAsBoolean(node, "modifiable"));
+        field.setDefaultValue(getAttributeValue(node, "defaultValue"));
         setValuesForValueNode(node, field, namespacePrefix, parent);
     }
 
@@ -431,6 +436,8 @@ public class EDIConfigDigester {
     private void setValuesForComponent(Component component, Node node, String namespacePrefix, MappingNode parent) throws EDIConfigurationException {
         component.setRequired(getNodeValueAsBoolean(node, "required"));
         component.setTruncatable(getNodeValueAsBoolean(node, "truncatable"));
+        component.setModifiable(getNodeValueAsBoolean(node, "modifiable"));
+        component.setDefaultValue(getAttributeValue(node, "defaultValue"));
         setValuesForValueNode(node, component, namespacePrefix, parent);
     }
 

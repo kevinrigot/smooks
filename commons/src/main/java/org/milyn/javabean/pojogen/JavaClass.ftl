@@ -4,11 +4,11 @@
 package ${class.packageName};
 
 <#list class.imports as importClass>
-import ${importClass.name};    
+import ${importClass.name};
 </#list>
 
 <#list class.annotationTypes as annotationType>
-@${annotationType.type.simpleName}    
+@${annotationType.type.simpleName}
 </#list>
 public class ${class.className}${class.implementsDecl}${class.extendsDecl} {
 
@@ -17,7 +17,7 @@ public class ${class.className}${class.implementsDecl}${class.extendsDecl} {
     </#if>
 
     <#list class.properties as property>
-    private ${property};
+    private ${property}${property.defaultValueToString};
     </#list>
     <#list class.constructors as constructor>
 

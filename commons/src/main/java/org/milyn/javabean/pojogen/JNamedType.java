@@ -23,15 +23,26 @@ import org.milyn.assertion.AssertArgument;
  * @author <a href="mailto:tom.fennelly@jboss.com">tom.fennelly@jboss.com</a>
  */
 public class JNamedType {
-    
+
     private JType type;
     private String name;
+    private String defaultValue;
+    private boolean modifiable = true;
 
     public JNamedType(JType type, String name) {
         AssertArgument.isNotNull(type, "type");
         AssertArgument.isNotNull(name, "name");
         this.type = type;
         this.name = name;
+    }
+
+    public JNamedType(JType type, String name, String defaultValue, boolean modifiable) {
+        AssertArgument.isNotNull(type, "type");
+        AssertArgument.isNotNull(name, "name");
+        this.type = type;
+        this.name = name;
+        this.defaultValue = defaultValue;
+        this.modifiable = modifiable;
     }
 
     public JType getType() {
@@ -42,9 +53,28 @@ public class JNamedType {
         return name;
     }
 
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public boolean isModifiable() {
+        return modifiable;
+    }
+
+    public void setModifiable(boolean modifiable) {
+        this.modifiable = modifiable;
+    }
+
     @Override
     public String toString() {
-        return type.toString() + " " + name;
+	return type.toString() + " " + name;
+    }
+    public String getDefaultValueToString() {
+        return (defaultValue!=null) ? " = "+defaultValue : "";
     }
 
     @Override

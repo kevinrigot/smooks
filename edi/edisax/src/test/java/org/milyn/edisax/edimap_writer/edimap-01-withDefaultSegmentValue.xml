@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.6.1.xsd">
+
+	<medi:description name="Test Message" version="1.0" />
+
+	<medi:delimiters segment="&#10;" field="*" component="^" sub-component="~" />
+
+	<medi:segments xmltag="test-message">
+		<medi:documentation>segments docs...</medi:documentation>
+		<medi:segmentGroup maxOccurs="1" minOccurs="1" xmltag="InsurerPTY006Group">
+			<medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" modifiable="false" defaultValue="new SegmentGroupHeaderXRH1()" segcode="XRH" truncatable="true" xmltag="SegmentGroupHeaderXRH1">
+				<medi:field defaultValue="&quot;1&quot;" modifiable="false" required="true" truncatable="false" xmltag="SegmentGroupLevelNumberX911" />
+			</medi:segment>
+			<medi:segment segcode="SEG" xmltag="message-seg" maxOccurs="1" minOccurs="1" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
+				<medi:documentation>segment docs...</medi:documentation>
+				<medi:field defaultValue="&quot;01&quot;" modifiable="false" required="false" truncatable="false" xmltag="field-1" />
+				<medi:field required="true" truncatable="true" xmltag="ExchangeUnitIssuingDetailsC910XEH" modifiable="true">
+					<medi:component defaultValue="&quot;E1&quot;" modifiable="false" required="true" truncatable="false" xmltag="ExchangeUnitIssuingFormatX940" />
+					<medi:component required="false" modifiable="true" truncatable="false" xmltag="ExchangeUnitIssuingApplicationX941" />
+				</medi:field>
+			</medi:segment>
+		</medi:segmentGroup>
+
+	</medi:segments>
+
+</medi:edimap>

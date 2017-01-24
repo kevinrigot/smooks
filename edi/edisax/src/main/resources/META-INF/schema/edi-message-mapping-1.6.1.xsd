@@ -209,6 +209,8 @@
                     <xs:attribute name="truncatable" type="xs:boolean" use="optional" default="false"/>
                     <xs:attribute name="ignoreUnmappedFields" type="xs:boolean" use="optional" default="false"/>
                     <xs:attribute name="description" type="xs:string" use="optional"/>
+					<xs:attribute name="defaultValue" type="xs:string" use="optional"/>
+					<xs:attribute name="modifiable" type="xs:boolean" use="optional" default="true"/>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>
@@ -223,7 +225,7 @@
                     <xs:attribute name="required" type="xs:boolean" use="optional" default="false"/>
                     <xs:attribute name="truncatable" type="xs:boolean" use="optional" default="false"/>
 					<xs:attribute name="defaultValue" type="xs:string" use="optional"/>
-					<xs:attribute name="modifiable" type="xs:boolean" use="optional" default="true"/>					
+					<xs:attribute name="modifiable" type="xs:boolean" use="optional" default="true"/>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>
@@ -238,7 +240,7 @@
                     <xs:attribute name="required" type="xs:boolean" use="optional" default="false"/>
                     <xs:attribute name="truncatable" type="xs:boolean" use="optional" default="false"/>
 					<xs:attribute name="defaultValue" type="xs:string" use="optional"/>
-					<xs:attribute name="modifiable" type="xs:boolean" use="optional" default="true"/>					
+					<xs:attribute name="modifiable" type="xs:boolean" use="optional" default="true"/>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>

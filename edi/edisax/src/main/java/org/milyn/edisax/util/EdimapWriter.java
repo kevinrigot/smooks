@@ -131,7 +131,7 @@ public class EdimapWriter {
 
             if(childSegment instanceof Segment) {
                 segmentEl = newElement("segment", parentSegment, childSegment);
-                mapBeanProperties(childSegment, segmentEl, "segcode", "nodeTypeRef", "description", "ignoreUnmappedFields", "truncatable");
+                mapBeanProperties(childSegment, segmentEl, "segcode", "nodeTypeRef", "description", "ignoreUnmappedFields", "truncatable", "modifiable","defaultValue");
 
                 addFields(((Segment)childSegment).getFields(), segmentEl);
             } else {
@@ -178,7 +178,7 @@ public class EdimapWriter {
 
             if(propertyTokens.length == 2) {
                 propertyName = propertyTokens[0];
-                attributeName = propertyTokens[1];                
+                attributeName = propertyTokens[1];
             } else {
                 propertyName = property;
                 attributeName = property;

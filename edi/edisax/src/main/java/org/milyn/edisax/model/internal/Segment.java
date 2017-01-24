@@ -32,13 +32,16 @@ public class Segment extends SegmentGroup implements ContainerNode {
     private String description;
     private String importXmlTag;
 
+    private String defaultValue;
+    private Boolean modifiable = true;
+
     public List<Field> getFields() {
         if (fields == null) {
             fields = new ArrayList<Field>();
         }
         return this.fields;
     }
-    
+
     public Segment addField(Field field) {
     	getFields().add(field);
     	return this;
@@ -64,11 +67,11 @@ public class Segment extends SegmentGroup implements ContainerNode {
     public void setTruncatable(Boolean value) {
         this.truncatable = value;
     }
-    
+
     public void setIgnoreUnmappedFields(Boolean value) {
     	this.ignoreUnmappedFields = value;
     }
-    
+
     public boolean isIgnoreUnmappedFields() {
     	return ignoreUnmappedFields != null && ignoreUnmappedFields;
     }
@@ -88,4 +91,22 @@ public class Segment extends SegmentGroup implements ContainerNode {
     public void setImportXmlTag(String importXmlTag) {
         this.importXmlTag = importXmlTag;
     }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public boolean isModifiable() {
+        return modifiable!= null && modifiable;
+    }
+
+    public void setModifiable(Boolean modifiable) {
+        this.modifiable = modifiable;
+    }
+
+
 }

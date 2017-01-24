@@ -7,7 +7,7 @@
 
 	<medi:segments xmltag="test-message">
         <medi:documentation>segments docs...</medi:documentation>
-		<medi:segment segcode="SEG" xmltag="message-seg" maxOccurs="1" minOccurs="1" ignoreUnmappedFields="false" truncatable="false">
+		<medi:segment segcode="SEG" xmltag="message-seg" maxOccurs="1" minOccurs="1" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
             <medi:documentation>segment docs...</medi:documentation>
 			<medi:field modifiable="true" required="false" truncatable="false" xmltag="field-1" />
 			<medi:field modifiable="true" required="false" truncatable="false" xmltag="field-2">
@@ -33,10 +33,10 @@
             </medi:field>
 		</medi:segment>
 
-        <medi:segment segcode="SEG2" xmltag="message-seg" maxOccurs="1" minOccurs="1" ignoreUnmappedFields="false" truncatable="false">
+        <medi:segment segcode="SEG2" xmltag="message-seg" maxOccurs="1" minOccurs="1" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
             <medi:documentation>segment docs...</medi:documentation>
             <medi:field modifiable="true" required="false" truncatable="false" xmltag="field-1" />
-            <medi:segment xmltag="SEG22" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false">
+            <medi:segment xmltag="SEG22" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
                 <medi:field modifiable="true" required="false" truncatable="false" xmltag="field-1-1">
                     <medi:component modifiable="true" xmltag="comp1" minLength="0" maxLength="4" required="true" dataType="Date" dataTypeParameters="format=MMM" truncatable="false">
                         <medi:documentation>component docs...</medi:documentation>
@@ -48,7 +48,7 @@
             </medi:segment>
 
             <medi:segmentGroup minOccurs="1" maxOccurs="5" xmltag="boo">
-                <medi:segment xmltag="SEG31" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false">
+                <medi:segment xmltag="SEG31" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
                     <medi:field modifiable="true" required="false" truncatable="false" xmltag="field-1-1">
                         <medi:component modifiable="true" xmltag="comp1" minLength="0" maxLength="4" required="true" dataType="Date" dataTypeParameters="format=MMM" truncatable="false">
                             <medi:documentation>component docs...</medi:documentation>
@@ -58,7 +58,7 @@
                         </medi:component>
                     </medi:field>
                 </medi:segment>
-                <medi:segment xmltag="SEG32" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false">
+                <medi:segment xmltag="SEG32" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
                     <medi:field modifiable="true" required="false" truncatable="false" xmltag="field-1-1">
                         <medi:component modifiable="true" xmltag="comp1" minLength="0" maxLength="4" required="true" dataType="Date" dataTypeParameters="format=MMM" truncatable="false">
                             <medi:documentation>component docs...</medi:documentation>
@@ -72,7 +72,7 @@
         </medi:segment>
 
         <medi:segmentGroup minOccurs="3" maxOccurs="9" xmltag="blablah">
-            <medi:segment xmltag="SEG32" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false">
+            <medi:segment xmltag="SEG32" segcode="xxx" minOccurs="1" maxOccurs="6" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
                 <medi:field modifiable="true" required="false" truncatable="false" xmltag="field-1-1">
                     <medi:component modifiable="true" xmltag="comp1" minLength="0" maxLength="4" required="true" dataType="Date" dataTypeParameters="format=MMM" truncatable="false">
                         <medi:documentation>component docs...</medi:documentation>

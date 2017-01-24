@@ -72,7 +72,7 @@ public class EDIConfigDigester {
     public static final String XSD_V15 = "http://www.milyn.org/schema/edi-message-mapping-1.5.xsd";
     public static final String XSD_V16 = "http://www.milyn.org/schema/edi-message-mapping-1.6.xsd";
     public static final String XSD_V16_1 = "http://www.milyn.org/schema/edi-message-mapping-1.6.1.xsd";
-    
+
     public static final String DEFAULT_XSD = XSD_V16_1;
     private static final String NAMESPACE_SUFFIX = ":";
 
@@ -404,6 +404,8 @@ public class EDIConfigDigester {
         segment.setTruncatable(getNodeValueAsBoolean(node, "truncatable"));
         segment.setIgnoreUnmappedFields(getNodeValueAsBoolean(node, "ignoreUnmappedFields"));
         segment.setDescription(getAttributeValue(node, "description"));
+        segment.setModifiable(getNodeValueAsBoolean(node, "modifiable"));
+        segment.setDefaultValue(getAttributeValue(node, "defaultValue"));
         setValuesForMappingNode(node, segment, namespacePrefix, parent);
 
         if(segment.getNodeTypeRef() == null) {

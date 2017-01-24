@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.milyn.edisax.model.EDIConfigDigester;
 import org.milyn.edisax.model.internal.Edimap;
 import org.milyn.edisax.model.internal.Segment;
+import org.milyn.edisax.model.internal.SegmentGroup;
 import org.xml.sax.SAXException;
 
 /**
@@ -33,6 +34,20 @@ public class EdimapWriterTest {
         assertFalse(segment.getFields().get(0).isModifiable());
         assertEquals("\"E1\"", segment.getFields().get(1).getComponents().get(0).getDefaultValue());
         assertFalse(segment.getFields().get(1).getComponents().get(0).isModifiable());
+    }
+
+    @Test
+    public void testWithDefaultSegmentValue() throws IOException, SAXException {
+        Edimap edimap = EDIConfigDigester.digestConfig(getClass().getResourceAsStream("edimap-01-withDefaultSegmentValue.xml"));
+        SegmentGroup segmentGroup = edimap.getSegments().getSegments().get(0);
+	Segment segment = (Segment) segmentGroup.getSegments().get(0);
+        assertEquals("new SegmentGroupHeaderXRH1()", segment.getDefaultValue());
+        assertFalse(segment.isModifiable());
+    }
+
+    @Test
+    public void testWriteDefaultSegment() throws IOException, SAXException {
+        test("edimap-01-withDefaultSegmentValue.xml");
     }
 
     public void test(String edimapfile) throws IOException, SAXException {

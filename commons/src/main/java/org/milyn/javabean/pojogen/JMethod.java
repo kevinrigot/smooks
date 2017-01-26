@@ -34,6 +34,7 @@ public class JMethod {
     private List<JNamedType> parameters = new ArrayList<JNamedType>();
     private Set<JType> exceptions = new LinkedHashSet<JType>();
     private StringBuilder bodyBuilder = new StringBuilder();
+    private String documentation;
 
     public JMethod(String methodName) {
         AssertArgument.isNotNull(methodName, "methodName");
@@ -92,6 +93,14 @@ public class JMethod {
 
     public Set<JType> getExceptions() {
         return exceptions;
+    }
+
+    public String getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(String documentation) {
+        this.documentation = documentation;
     }
 
     public void finalizeMethod() {

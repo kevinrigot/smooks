@@ -28,6 +28,7 @@ public class JNamedType {
     private String name;
     private String defaultValue;
     private boolean modifiable = true;
+    private String documentation;
 
     public JNamedType(JType type, String name) {
         AssertArgument.isNotNull(type, "type");
@@ -67,6 +68,14 @@ public class JNamedType {
 
     public void setModifiable(boolean modifiable) {
         this.modifiable = modifiable;
+    }
+
+    public String getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(String documentation) {
+        this.documentation = documentation;
     }
 
     @Override

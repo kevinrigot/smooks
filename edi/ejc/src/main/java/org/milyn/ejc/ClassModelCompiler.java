@@ -244,6 +244,7 @@ public class ClassModelCompiler {
 
         String propertyName = EDIUtils.encodeAttributeName(jtype, valueNode.getJavaName());
         childToParentProperty = new JNamedType(jtype, propertyName);
+        childToParentProperty.setDocumentation(valueNode.getDocumentation());
         if(valueNode instanceof Field){
             childToParentProperty.setDefaultValue(((Field) valueNode).getDefaultValue());
             childToParentProperty.setModifiable(((Field) valueNode).isModifiable());

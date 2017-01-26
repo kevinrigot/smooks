@@ -158,17 +158,17 @@ public class JClass {
 
         // Add property setter method...
         if(property.isModifiable()){
+            JMethod setterMethod;
             if(fluentSetters) {
-                JMethod setterMethod = new JMethod(new JType(getSkeletonClass()), "set" + capitalizedPropertyName);
-                setterMethod.addParameter(property);
+                setterMethod = new JMethod(new JType(getSkeletonClass()), "set" + capitalizedPropertyName);
                 setterMethod.appendToBody("this." + property.getName() + " = " + property.getName() + ";  return this;");
-                methods.add(setterMethod);
             } else {
-                JMethod setterMethod = new JMethod("set" + capitalizedPropertyName);
-                setterMethod.addParameter(property);
+                setterMethod = new JMethod("set" + capitalizedPropertyName);
                 setterMethod.appendToBody("this." + property.getName() + " = " + property.getName() + ";");
-                methods.add(setterMethod);
             }
+            setterMethod.setDocumentation(property.getDocumentation());
+            setterMethod.addParameter(property);
+            methods.add(setterMethod);
         }
 
         return this;

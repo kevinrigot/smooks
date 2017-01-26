@@ -26,7 +26,9 @@ public class ${class.className}${class.implementsDecl}${class.extendsDecl} {
     }
     </#list>
     <#list class.methods as method>
-
+    	<#if method.documentation??>
+    /** ${method.documentation} */
+    	</#if>
     public ${method.returnType} ${method.methodName}${method.paramSignature} {
         ${method.body}
     }

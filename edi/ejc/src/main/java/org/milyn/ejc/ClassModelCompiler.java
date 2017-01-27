@@ -359,6 +359,7 @@ public class ClassModelCompiler {
 
         String propertyName = EDIUtils.encodeAttributeName(jtype, mappingNode.getJavaName());
         JNamedType childProperty = new JNamedType(jtype, propertyName);
+        childProperty.setDocumentation(mappingNode.getDocumentation());
         if(mappingNode instanceof Segment){
             childProperty.setDefaultValue(((Segment) mappingNode).getDefaultValue());
             childProperty.setModifiable(((Segment) mappingNode).isModifiable());

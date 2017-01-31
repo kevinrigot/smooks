@@ -346,6 +346,7 @@ public class ClassModelCompiler {
             }
 
             child = new JClass(packageName, className, getCurrentClassId()).setSerializable();
+            child.setDocumentation(mappingNode.getDocumentation());
             addClassToModel = true;
             LOG.debug("Created class " + child.getClassName() + ".");
         }

@@ -49,231 +49,243 @@ public class JClass {
     private boolean fluentSetters = true;
     private boolean serializable = false;
     private boolean finalized = false;
+    private String documentation;
 
     private static FreeMarkerTemplate template;
 
     static {
-        try {
-            template = new FreeMarkerTemplate(StreamUtils.readStreamAsString(JClass.class.getResourceAsStream("JavaClass.ftl")));
-        } catch (IOException e) {
-            throw new IllegalStateException("Failed to load JavaClass.ftl FreeMarker template.", e);
-        }
+	try {
+	    template = new FreeMarkerTemplate(StreamUtils.readStreamAsString(JClass.class.getResourceAsStream("JavaClass.ftl")));
+	} catch (IOException e) {
+	    throw new IllegalStateException("Failed to load JavaClass.ftl FreeMarker template.", e);
+	}
     }
 
     public JClass(String packageName, String className) {
-        this(packageName, className, UUID.randomUUID().toString());
+	this(packageName, className, UUID.randomUUID().toString());
     }
 
     public JClass(String packageName, String className, String uniqueId) {
-        AssertArgument.isNotNull(packageName, "packageName");
-        AssertArgument.isNotNull(className, "className");
-        AssertArgument.isNotNull(uniqueId, "uniqueId");
-        this.packageName = packageName;
-        this.className = className;
-        this.uniqueId = uniqueId;
+	AssertArgument.isNotNull(packageName, "packageName");
+	AssertArgument.isNotNull(className, "className");
+	AssertArgument.isNotNull(uniqueId, "uniqueId");
+	this.packageName = packageName;
+	this.className = className;
+	this.uniqueId = uniqueId;
     }
 
     public String getPackageName() {
-        return packageName;
+	return packageName;
     }
 
     public String getClassName() {
-        return className;
+	return className;
     }
 
     public String getUniqueId() {
-        return uniqueId;
+	return uniqueId;
     }
 
     public Set<JType> getRawImports() {
-        return rawImports;
+	return rawImports;
     }
 
     public Set<JType> getImplementTypes() {
-        return implementTypes;
+	return implementTypes;
     }
 
     public Set<JType> getExtendTypes() {
-        return extendTypes;
+	return extendTypes;
     }
 
     public Set<JType> getAnnotationTypes() {
-        return annotationTypes;
+	return annotationTypes;
     }
 
     public void setFluentSetters(boolean fluentSetters) {
-        this.fluentSetters = fluentSetters;
+	this.fluentSetters = fluentSetters;
     }
 
     public Class<?> getSkeletonClass() {
-        if(skeletonClass == null) {
-            String skeletonClassName = packageName + "." + className;
+	if (skeletonClass == null) {
+	    String skeletonClassName = packageName + "." + className;
 
-            try {
-                skeletonClass = Thread.currentThread().getContextClassLoader().loadClass(skeletonClassName);
-            } catch (ClassNotFoundException e) {
-                ClassPool pool = new ClassPool(true);
-                CtClass cc = pool.makeClass(skeletonClassName);
+	    try {
+		skeletonClass = Thread.currentThread().getContextClassLoader().loadClass(skeletonClassName);
+	    } catch (ClassNotFoundException e) {
+		ClassPool pool = new ClassPool(true);
+		CtClass cc = pool.makeClass(skeletonClassName);
 
-                try {
-                    skeletonClass = cc.toClass();
-                } catch (CannotCompileException ee) {
-                    throw new IllegalStateException("Unable to create runtime skeleton class for class '" + skeletonClassName + "'.", ee);
-                } finally {
-                    cc.detach();
-                }
-            }
-        }
+		try {
+		    skeletonClass = cc.toClass();
+		} catch (CannotCompileException ee) {
+		    throw new IllegalStateException("Unable to create runtime skeleton class for class '" + skeletonClassName + "'.", ee);
+		} finally {
+		    cc.detach();
+		}
+	    }
+	}
 
-        return skeletonClass;
+	return skeletonClass;
     }
 
     public JClass setSerializable() {
-        this.serializable = true;
-        implementTypes.add(new JType(Serializable.class));
-        return this;
+	this.serializable = true;
+	implementTypes.add(new JType(Serializable.class));
+	return this;
     }
 
     public boolean isSerializable() {
-        return serializable;
+	return serializable;
     }
 
     public void addProperty(JNamedType property) {
-        AssertArgument.isNotNull(property, "property");
-        assertPropertyUndefined(property);
+	AssertArgument.isNotNull(property, "property");
+	assertPropertyUndefined(property);
 
-        properties.add(property);
+	properties.add(property);
     }
 
     public JClass addBeanProperty(JNamedType property) {
-        addProperty(property);
+	addProperty(property);
 
-        String propertyName = property.getName();
-        String capitalizedPropertyName = Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
+	String propertyName = property.getName();
+	String capitalizedPropertyName = Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
 
-        // Add property getter method...
-        JMethod getterMethod = new JMethod(property.getType(), "get" + capitalizedPropertyName);
-        getterMethod.appendToBody("return " + property.getName() + ";");
-        methods.add(getterMethod);
+	// Add property getter method...
+	JMethod getterMethod = new JMethod(property.getType(), "get" + capitalizedPropertyName);
+	getterMethod.appendToBody("return " + property.getName() + ";");
+	methods.add(getterMethod);
 
-        // Add property setter method...
-        JMethod setterMethod;
-        if(fluentSetters) {
-            setterMethod = new JMethod(new JType(getSkeletonClass()), "set" + capitalizedPropertyName);
-            setterMethod.appendToBody("this." + property.getName() + " = " + property.getName() + ";  return this;");
-        } else {
-            setterMethod = new JMethod("set" + capitalizedPropertyName);
-            setterMethod.appendToBody("this." + property.getName() + " = " + property.getName() + ";");
-        }
-        setterMethod.setDocumentation(property.getDocumentation());
-        setterMethod.addParameter(property);
-        methods.add(setterMethod);
+	// Add property setter method...
+	JMethod setterMethod;
+	if (fluentSetters) {
+	    setterMethod = new JMethod(new JType(getSkeletonClass()), "set" + capitalizedPropertyName);
+	    setterMethod.appendToBody("this." + property.getName() + " = " + property.getName() + ";  return this;");
+	} else {
+	    setterMethod = new JMethod("set" + capitalizedPropertyName);
+	    setterMethod.appendToBody("this." + property.getName() + " = " + property.getName() + ";");
+	}
+	setterMethod.addParameter(property);
+	methods.add(setterMethod);
+	if (property.getDocumentation() != null && !property.getDocumentation().isEmpty()) {
+	    setterMethod.setDocumentation(property.getDocumentation());
+	    getterMethod.setDocumentation("{@link #" + setterMethod.getMethodName() + setterMethod.getParamSignature() + "}");
+	}
 
-        return this;
+	return this;
     }
 
     public List<JNamedType> getProperties() {
-        return properties;
+	return properties;
     }
 
     public List<JMethod> getConstructors() {
-        return constructors;
+	return constructors;
     }
 
     public List<JMethod> getMethods() {
-        return methods;
+	return methods;
+    }
+
+    public String getDocumentation() {
+	return documentation;
+    }
+
+    public void setDocumentation(String documentation) {
+	this.documentation = documentation;
     }
 
     public JMethod getDefaultConstructor() {
-        for(JMethod constructor : constructors) {
-            if(constructor.getParameters().isEmpty()) {
-                return constructor;
-            }
-        }
+	for (JMethod constructor : constructors) {
+	    if (constructor.getParameters().isEmpty()) {
+		return constructor;
+	    }
+	}
 
-        JMethod constructor = new JMethod(getClassName());
-        constructors.add(constructor);
+	JMethod constructor = new JMethod(getClassName());
+	constructors.add(constructor);
 
-        return constructor;
+	return constructor;
     }
 
     public Set<Class<?>> getImports() {
-        Set<Class<?>> importSet = new LinkedHashSet<Class<?>>();
+	Set<Class<?>> importSet = new LinkedHashSet<Class<?>>();
 
-        addImports(importSet, implementTypes);
-        addImports(importSet, extendTypes);
-        addImports(importSet, annotationTypes);
-        for(JNamedType property : properties) {
-            property.getType().addImports(importSet, new String[] {"java.lang", packageName});
-        }
-        addMethodImportData(constructors, importSet);
-        addMethodImportData(methods, importSet);
-        addImports(importSet, rawImports);
+	addImports(importSet, implementTypes);
+	addImports(importSet, extendTypes);
+	addImports(importSet, annotationTypes);
+	for (JNamedType property : properties) {
+	    property.getType().addImports(importSet, new String[] { "java.lang", packageName });
+	}
+	addMethodImportData(constructors, importSet);
+	addMethodImportData(methods, importSet);
+	addImports(importSet, rawImports);
 
-        return importSet;
+	return importSet;
     }
 
     private void addImports(Set<Class<?>> importSet, Collection<JType> types) {
-        for(JType property : types) {
-            property.addImports(importSet, new String[] {"java.lang", packageName});
-        }
+	for (JType property : types) {
+	    property.addImports(importSet, new String[] { "java.lang", packageName });
+	}
     }
 
     private void addMethodImportData(List<JMethod> methodList, Set<Class<?>> importSet) {
-        for(JMethod method : methodList) {
-            method.getReturnType().addImports(importSet, new String[] {"java.lang", packageName});
-            for(JNamedType param : method.getParameters()) {
-                param.getType().addImports(importSet, new String[] {"java.lang", packageName});
-            }
-            for(JType exception : method.getExceptions()) {
-                exception.addImports(importSet, new String[] {"java.lang", packageName});
-            }
-        }
+	for (JMethod method : methodList) {
+	    method.getReturnType().addImports(importSet, new String[] { "java.lang", packageName });
+	    for (JNamedType param : method.getParameters()) {
+		param.getType().addImports(importSet, new String[] { "java.lang", packageName });
+	    }
+	    for (JType exception : method.getExceptions()) {
+		exception.addImports(importSet, new String[] { "java.lang", packageName });
+	    }
+	}
     }
 
     public String getImplementsDecl() {
-        return PojoGenUtil.getTypeDecl("implements", implementTypes);
+	return PojoGenUtil.getTypeDecl("implements", implementTypes);
     }
 
     public String getExtendsDecl() {
-        return PojoGenUtil.getTypeDecl("extends", extendTypes);
+	return PojoGenUtil.getTypeDecl("extends", extendTypes);
     }
 
     public void writeClass(Writer writer) throws IOException {
-        Map<String, JClass> contextObj = new HashMap<String, JClass>();
+	Map<String, JClass> contextObj = new HashMap<String, JClass>();
 
-        contextObj.put("class", this);
-        writer.write(template.apply(contextObj));
+	contextObj.put("class", this);
+	writer.write(template.apply(contextObj));
 
-        // Finalize all the methods... allowing them to be GC'd...
-        finalizeMethods(constructors);
-        finalizeMethods(methods);
-        finalized = true;
+	// Finalize all the methods... allowing them to be GC'd...
+	finalizeMethods(constructors);
+	finalizeMethods(methods);
+	finalized = true;
     }
 
     public boolean isFinalized() {
-        return finalized;
+	return finalized;
     }
 
     private void finalizeMethods(List<JMethod> methodList) {
-        for(JMethod method : methodList) {
-            method.finalizeMethod();
-        }
+	for (JMethod method : methodList) {
+	    method.finalizeMethod();
+	}
     }
 
     private void assertPropertyUndefined(JNamedType property) {
-        if(hasProperty(property.getName())) {
-            throw new IllegalArgumentException("Property '" + property.getName() + "' already defined.");
-        }
+	if (hasProperty(property.getName())) {
+	    throw new IllegalArgumentException("Property '" + property.getName() + "' already defined.");
+	}
     }
 
     public boolean hasProperty(String propertyName) {
-        for(JNamedType definedProperty : properties) {
-            if(definedProperty.getName().equals(propertyName)) {
-                return true;
-            }
-        }
+	for (JNamedType definedProperty : properties) {
+	    if (definedProperty.getName().equals(propertyName)) {
+		return true;
+	    }
+	}
 
-        return false;
+	return false;
     }
 }

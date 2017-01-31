@@ -7,6 +7,9 @@ package ${class.packageName};
 import ${importClass.name};
 </#list>
 
+<#if class.documentation??>
+/** ${class.documentation} */
+</#if>
 <#list class.annotationTypes as annotationType>
 @${annotationType.type.simpleName}
 </#list>

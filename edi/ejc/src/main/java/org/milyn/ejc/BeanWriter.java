@@ -104,6 +104,7 @@ public class BeanWriter {
         configs.put("bindingFile", new File(bindingFile).getName());
         configs.put("generateFromEDINR", generateFromEDINR);
         configs.put("edimappingconfigFile", new File(edimappingconfigFile).getName());
+        configs.put("segmentsWithQualifier", model.getSegmentsWithQualifier());
 
         FileOutputStream fileOutputStream = null;
         OutputStreamWriter writer = null;

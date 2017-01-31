@@ -275,11 +275,16 @@ public class EDIConfigDigester {
      * @throws org.milyn.edisax.EDIConfigurationException is thrown when values are badly formatted.
      */
     private void digestSegments(Node node, Edimap edimap, String namespacePrefix) throws EDIConfigurationException {
-        SegmentGroup segments = new SegmentGroup();
+
+	SegmentGroup segments = new SegmentGroup();
         setValuesForMappingNode(node, segments, namespacePrefix, null);
         segments.setNamespace(edimap.getDescription().getNamespace());
         edimap.setSegments(segments);
         edimap.setIgnoreUnmappedSegments(getNodeValueAsBoolean(node, "ignoreUnmappedSegments"));
+        String segmentsWithQualifier = getAttributeValue(node, "segmentsWithQualifier");
+	if(segmentsWithQualifier!=null){
+	    segments.setSegmentsWithQualifier(segmentsWithQualifier);
+	}
 
         NodeList nodes = node.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {

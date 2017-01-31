@@ -5,7 +5,7 @@
 
 	<medi:delimiters segment="&#10;" field="*" component="^" sub-component="~" />
 
-	<medi:segments xmltag="test-message">
+	<medi:segments xmltag="test-message" segmentsWithQualifier="">
         <medi:documentation>segments docs...</medi:documentation>
 		<medi:segment segcode="SEG" xmltag="message-seg" maxOccurs="1" minOccurs="1" ignoreUnmappedFields="false" truncatable="false" modifiable="true">
             <medi:documentation>segment docs...</medi:documentation>

@@ -13,11 +13,15 @@ import org.xml.sax.SAXException;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
+import java.io.StringWriter;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.io.IOException;
 import javax.xml.transform.Result;
+
+import be.allianz.telebib.EdiToAllianzConverter;
 
 public class ${className}Factory {
 
@@ -32,11 +36,18 @@ public class ${className}Factory {
         smooks.addConfigurations(resourceConfigStream);
     }
 
-    public ${className} fromEDI(InputStream ediStream, Result... additionalResults) {
+    public ${className} fromEDI(String inputEdiMessage){
+		return this.fromEDI(EdiToAllianzConverter.fromEdi(inputEdiMessage, this.getAllSegmentsWithKnownQualifier()));
+    }
+    private String getAllSegmentsWithKnownQualifier(){
+    	return "${segmentsWithQualifier}";
+    }
+
+    private ${className} fromEDI(InputStream ediStream, Result... additionalResults) {
         return fromEDI(new InputStreamReader(ediStream), additionalResults);
     }
 
-    public ${className} fromEDI(Reader ediStream, Result... additionalResults) {
+    private ${className} fromEDI(Reader ediStream, Result... additionalResults) {
         JavaResult javaResult = new JavaResult();
         int numAdditionalRes = (additionalResults != null? additionalResults.length : 0);
         Result[] results = new Result[numAdditionalRes + 1];
@@ -55,8 +66,13 @@ public class ${className}Factory {
         return fromEDI(ediStream);
     }
     </#if>
+    public String toEDI(${className} instance) throws IOException {
+    	StringWriter out = new StringWriter();
+        instance.write(out, delimiters);
+    	return EdiToAllianzConverter.toEdi(out);
+    }
 
-    public void toEDI(${className} instance, Writer writer) throws IOException {
+    private void toEDI(${className} instance, Writer writer) throws IOException {
         instance.write(writer, delimiters);
     }
 

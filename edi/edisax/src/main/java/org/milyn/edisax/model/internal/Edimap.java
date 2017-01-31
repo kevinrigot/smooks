@@ -26,45 +26,45 @@ import java.util.List;
 
 public class Edimap {
 
-	private URI src;
+    private URI src;
     private List<Import> imports;
     private Description description;
     private Delimiters delimiters;
     private SegmentGroup segments;
     private Boolean ignoreUnmappedSegments;
 
-    public Edimap() {    	
+    public Edimap() {
     }
-    
+
     public Edimap(URI src) {
-    	this.src = src;
+	this.src = src;
     }
-    
+
     public URI getSrc() {
-    	return src;
+	return src;
     }
-    
+
     public List<Import> getImports() {
-        if (imports == null) {
-            imports = new ArrayList<Import>();
-        }
-        return this.imports;
+	if (imports == null) {
+	    imports = new ArrayList<Import>();
+	}
+	return this.imports;
     }
 
     public Description getDescription() {
-        return description;
+	return description;
     }
 
     public void setDescription(Description value) {
-        this.description = value;
+	this.description = value;
     }
 
     public Delimiters getDelimiters() {
-        return delimiters;
+	return delimiters;
     }
 
     public void setDelimiters(Delimiters value) {
-        this.delimiters = value;
+	this.delimiters = value;
     }
 
     public void setIgnoreUnmappedSegments(Boolean value) {
@@ -75,15 +75,15 @@ public class Edimap {
 	return ignoreUnmappedSegments != null && ignoreUnmappedSegments;
     }
 
-public SegmentGroup getSegments() {
-        return segments;
+    public SegmentGroup getSegments() {
+	return segments;
     }
 
     public void setSegments(SegmentGroup value) {
-        this.segments = value;
+	this.segments = value;
     }
 
     public void write(Writer writer) throws IOException {
-        EdimapWriter.write(this, writer);
+	EdimapWriter.write(this, writer);
     }
 }

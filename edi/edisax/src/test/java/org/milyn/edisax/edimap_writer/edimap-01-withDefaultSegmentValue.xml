@@ -5,7 +5,7 @@
 
 	<medi:delimiters segment="&#10;" field="*" component="^" sub-component="~" />
 
-	<medi:segments xmltag="test-message">
+	<medi:segments xmltag="test-message" segmentsWithQualifier="">
 		<medi:documentation>segments docs...</medi:documentation>
 		<medi:segmentGroup maxOccurs="1" minOccurs="1" xmltag="InsurerPTY006Group">
 			<medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" modifiable="false" defaultValue="new SegmentGroupHeaderXRH1()" segcode="XRH" truncatable="true" xmltag="SegmentGroupHeaderXRH1">

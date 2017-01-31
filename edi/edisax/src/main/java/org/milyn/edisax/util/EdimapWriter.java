@@ -100,7 +100,7 @@ public class EdimapWriter {
         SegmentGroup segments = edimap.getSegments();
         Element segmentsEl = newElement("segments", edimapEl, segments);
 
-        mapBeanProperties(segments, segmentsEl, "name", "xmltag");
+        mapBeanProperties(segments, segmentsEl, "name", "xmltag", "segmentsWithQualifier");
         addChildSegments(segments, segmentsEl);
     }
 

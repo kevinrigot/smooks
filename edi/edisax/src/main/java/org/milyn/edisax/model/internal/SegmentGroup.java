@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 /**
  * Segment Group.
- * 
+ *
  * @author <a href="mailto:tom.fennelly@jboss.com">tom.fennelly@jboss.com</a>
  */
 public class SegmentGroup extends MappingNode {
@@ -29,6 +29,7 @@ public class SegmentGroup extends MappingNode {
     private List<SegmentGroup> segments;
     private Integer minOccurs;
     private Integer maxOccurs;
+    private String segmentsWithQualifier = "";
 
     public List<SegmentGroup> getSegments() {
         if (segments == null) {
@@ -67,5 +68,13 @@ public class SegmentGroup extends MappingNode {
 
     public void setMaxOccurs(Integer value) {
         this.maxOccurs = value;
+    }
+
+    public String getSegmentsWithQualifier() {
+	return segmentsWithQualifier ;
+    }
+
+    public void setSegmentsWithQualifier(String segmentsWithQualifier) {
+        this.segmentsWithQualifier = segmentsWithQualifier;
     }
 }

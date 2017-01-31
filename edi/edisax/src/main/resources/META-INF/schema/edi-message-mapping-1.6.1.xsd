@@ -100,6 +100,7 @@
                             <xs:documentation>Option to ignore EDI segments undefined in mapping model.</xs:documentation>
                         </xs:annotation>
                     </xs:attribute>
+                    <xs:attribute name="segmentsWithQualifier" type="xs:string" use="optional"/>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>

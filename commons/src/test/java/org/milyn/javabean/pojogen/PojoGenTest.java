@@ -344,6 +344,10 @@ public class PojoGenTest {
             "        return nonModifiableVar;\n" +
             "    }\n" +
             "\n" +
+            "    public AClass setNonModifiableVar(String nonModifiableVar) {\n" +
+            "        this.nonModifiableVar = nonModifiableVar;  return this;\n" +
+            "    }\n" +
+            "\n" +
             "}";
 
     private static String documented_Expected = "/**\n" +

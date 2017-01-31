@@ -47,19 +47,19 @@ public class ClassModel {
     private String bindingFilePath;
 
     public void setEdimap(Edimap edimap) {
-        this.edimap = edimap;
+	this.edimap = edimap;
     }
 
     public Edimap getEdimap() {
-        return edimap;
+	return edimap;
     }
 
     public BindingConfig getRootBeanConfig() {
-        return rootBeanConfig;
+	return rootBeanConfig;
     }
 
     public void setRootBeanConfig(BindingConfig rootBeanConfig) {
-        this.rootBeanConfig = rootBeanConfig;
+	this.rootBeanConfig = rootBeanConfig;
     }
 
     /**
@@ -67,10 +67,10 @@ public class ClassModel {
      * @return A {@link java.util.List} of {@link org.milyn.javabean.pojogen.JClass}.
      */
     public List<JClass> getCreatedClasses() {
-        if ( createdClasses == null ) {
-            this.createdClasses = new ArrayList<JClass>();
-        }
-        return createdClasses;
+	if (createdClasses == null) {
+	    this.createdClasses = new ArrayList<JClass>();
+	}
+	return createdClasses;
     }
 
     /**
@@ -78,31 +78,36 @@ public class ClassModel {
      * @param jclass the {@link org.milyn.javabean.pojogen.JClass} to add.
      */
     public void addCreatedClass(JClass jclass) {
-        getCreatedClasses().add(jclass);
-        LOG.info("Added class " + jclass.getPackageName() + "." + jclass.getClassName() + " to model.");
+	getCreatedClasses().add(jclass);
+	LOG.info("Added class " + jclass.getPackageName() + "." + jclass.getClassName() + " to model.");
     }
 
     public void setClassesByNode(Map<MappingNode, JClass> classesBySegref) {
-        this.classesByNode = classesBySegref;
+	this.classesByNode = classesBySegref;
     }
 
     public Map<MappingNode, JClass> getClassesByNode() {
-        return classesByNode;
+	return classesByNode;
     }
 
     public boolean isClassCreator(JClass jClass) {
-        return createdClasses.contains(jClass);
+	return createdClasses.contains(jClass);
     }
 
     public void setReferencedClasses(Collection<JClass> referencedClasses) {
-        this.referencedClasses = referencedClasses;
+	this.referencedClasses = referencedClasses;
     }
 
     public String getBindingFilePath() {
-        return bindingFilePath;
+	return bindingFilePath;
     }
 
     public void setBindingFilePath(String bindingFilePath) {
-        this.bindingFilePath = bindingFilePath;
+	this.bindingFilePath = bindingFilePath;
     }
+
+    public String getSegmentsWithQualifier() {
+	return edimap.getSegments().getSegmentsWithQualifier();
+    }
+
 }

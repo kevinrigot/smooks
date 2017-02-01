@@ -5,18 +5,21 @@
     <parent>
         <groupId>org.milyn</groupId>
         <artifactId>testres</artifactId>
-	<version>1.7.1-SNAPSHOT</version>
+		<version>1.7.1-SNAPSHOT</version>
         <relativePath>../../testres/pom.xml</relativePath>
     </parent>
 
     <artifactId>milyn-edisax-parser</artifactId>
     <packaging>bundle</packaging>
     <name>Milyn :: EDI :: EdiSax Parser</name>
+    <groupId>be.allianz.smooks</groupId>
+    <description>Forked from https://github.com/smooks/smooks</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.milyn</groupId>
+            <groupId>be.allianz.smooks</groupId>
             <artifactId>milyn-commons</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

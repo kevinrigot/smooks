@@ -10,8 +10,10 @@
     </parent>
 
     <name>Milyn :: Commons</name>
+    <groupId>be.allianz.smooks</groupId>
     <artifactId>milyn-commons</artifactId>
     <packaging>bundle</packaging>
+	<description>Forked from https://github.com/smooks/smooks</description>
 
     <dependencies>
         <dependency>

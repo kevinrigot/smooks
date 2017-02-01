@@ -11,6 +11,8 @@
     <name>Milyn :: EDI :: Edifact Java Compiler</name>
     <artifactId>milyn-smooks-ejc</artifactId>
     <packaging>bundle</packaging>
+    <groupId>be.allianz.smooks</groupId>
+    <description>Forked from https://github.com/smooks/smooks</description>
 
     <dependencies>
         <dependency>
@@ -29,8 +31,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.milyn</groupId>
+            <groupId>be.allianz.smooks</groupId>
             <artifactId>milyn-edisax-parser</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

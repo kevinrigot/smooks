@@ -9,6 +9,8 @@
 	<name>Milyn :: EDI :: Edifact Java Compiler :: Maven Plugin Mojo</name>
 	<artifactId>ejc-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
+	<groupId>be.allianz.smooks</groupId>
+    <description>Forked from https://github.com/smooks/smooks</description>
 
 	<dependencies>
 		<dependency>
@@ -29,7 +31,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.milyn</groupId>
+            <groupId>be.allianz.smooks</groupId>
+            <version>${project.version}</version>
 			<artifactId>milyn-smooks-ejc</artifactId>
 			<exclusions>
 				<exclusion>
@@ -56,26 +59,26 @@
 							<id>generate</id>
 							<phase>generate-sources</phase>
 						</execution>
-                <execution>
-                    <id>default-descriptor</id>
-                    <goals>
-                        <goal>descriptor</goal>
-                    </goals>
-                    <phase>process-classes</phase>
-                </execution>
-                <execution>
-                    <id>help-descriptor</id>
-                    <goals>
-                        <goal>helpmojo</goal>
-                    </goals>
-                    <phase>process-classes</phase>
-                </execution>
-<!-- 						<execution> -->
-<!-- 							<id>generated-helpmojo</id> -->
-<!-- 							<goals> -->
-<!-- 								<goal>helpmojo</goal> -->
-<!-- 							</goals> -->
-<!-- 						</execution> -->
+						<execution>
+							<id>default-descriptor</id>
+							<goals>
+								<goal>descriptor</goal>
+							</goals>
+							<phase>process-classes</phase>
+						</execution>
+						<execution>
+							<id>help-descriptor</id>
+							<goals>
+								<goal>helpmojo</goal>
+							</goals>
+							<phase>process-classes</phase>
+						</execution>
+						<!-- <execution> -->
+						<!-- <id>generated-helpmojo</id> -->
+						<!-- <goals> -->
+						<!-- <goal>helpmojo</goal> -->
+						<!-- </goals> -->
+						<!-- </execution> -->
 					</executions>
 				</plugin>
 			</plugins>

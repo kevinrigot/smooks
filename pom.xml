@@ -27,7 +27,7 @@
         <module>edi</module>
         <module>smooks-cartridges</module>
         <module>smooks-all</module>
-        <module>smooks-examples</module>
+       <!-- <module>smooks-examples</module>-->
     </modules>
 
 

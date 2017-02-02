@@ -47,6 +47,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
+				<version>3.2</version>
                 <configuration>
                     <goalPrefix>ect</goalPrefix>
                     <outputDirectory>target/classes/META-INF/maven</outputDirectory>
@@ -56,12 +57,20 @@
                          <id>generate</id>
                          <phase>generate-sources</phase>
                     </execution>
-                    <execution>
-                         <id>generated-helpmojo</id>
-                         <goals>
-                             <goal>helpmojo</goal>
-                         </goals>
-                    </execution>
+						<execution>
+							<id>default-descriptor</id>
+							<goals>
+								<goal>descriptor</goal>
+							</goals>
+							<phase>process-classes</phase>
+						</execution>
+						<execution>
+							<id>help-descriptor</id>
+							<goals>
+								<goal>helpmojo</goal>
+							</goals>
+							<phase>process-classes</phase>
+						</execution>
                 </executions>
             </plugin>
         </plugins>

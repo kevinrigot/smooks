@@ -31,14 +31,7 @@
 
 		<dependency>
             <groupId>be.allianz.smooks</groupId>
-            <version>${project.version}</version>
 			<artifactId>milyn-smooks-ejc</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>be.allianz.smooks</groupId>
-					<artifactId>milyn-smooks-javabean</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 

@@ -16,27 +16,10 @@
 		<dependency>
 			<groupId>be.allianz.smooks</groupId>
 			<artifactId>milyn-smooks-javabean</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>be.allianz.smooks</groupId>
-					<artifactId>milyn-commons</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>be.allianz.smooks</groupId>
-			<artifactId>milyn-commons</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>be.allianz.smooks</groupId>
 			<artifactId>milyn-smooks-edi</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>be.allianz.smooks</groupId>
-					<artifactId>milyn-commons</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -47,7 +30,6 @@
 		<dependency>
 			<groupId>be.allianz.smooks</groupId>
 			<artifactId>milyn-edisax-parser</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>

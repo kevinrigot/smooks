@@ -99,7 +99,7 @@ public class UnEdifactSpecificationReaderTest {
         }
     }
 
-    @Test
+    //@Test
     public void test_D08A_SegmentsLongName() throws InstantiationException, IllegalAccessException, IOException, EdiParseException, ParserConfigurationException, SAXException, JDOMException {
 
         Edimap edimap = d08AReader_longnames.getDefinitionModel();
@@ -115,7 +115,7 @@ public class UnEdifactSpecificationReaderTest {
         testSegment("PRI", document, false);
     }
 
-    @Test
+    //@Test
     public void test_D08A_Segments_ShortName() throws InstantiationException, IllegalAccessException, IOException, EdiParseException, ParserConfigurationException, SAXException, JDOMException {
 
         Edimap edimap = d08AReader_shortnames.getDefinitionModel();

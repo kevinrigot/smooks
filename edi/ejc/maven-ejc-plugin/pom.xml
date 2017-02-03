@@ -9,7 +9,7 @@
 	<name>Milyn :: EDI :: Edifact Java Compiler :: Maven Plugin Mojo</name>
 	<artifactId>ejc-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-    <description>Forked from https://github.com/smooks/smooks</description>
+	<description>Forked from https://github.com/smooks/smooks</description>
 
 	<dependencies>
 		<dependency>
@@ -30,8 +30,14 @@
 		</dependency>
 
 		<dependency>
-            <groupId>be.allianz.smooks</groupId>
+			<groupId>be.allianz.smooks</groupId>
 			<artifactId>milyn-smooks-ejc</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>be.allianz.smooks</groupId>
+					<artifactId>milyn-smooks-javabean</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
